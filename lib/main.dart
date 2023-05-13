@@ -36,22 +36,43 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text('انتخاب بسته اینترنتی'),
-          bottom:  const TabBar(
-            tabs: [
-              Tab(text: 'روزانه',),
-              Tab(text: 'هفتگی',),
-              Tab(text: 'ماهانه',),
-              Tab(text: 'انواع دیگر',),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Container(
+                alignment: AlignmentDirectional.topCenter,
+                height: 45,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(25.0)
+                ),
+                child: TabBar(
+                  indicator: BoxDecoration(
+                    color: Colors.yellow[200],
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.grey,
+                  tabs: const [
+                    Tab(text: 'روزانه',),
+                    Tab(text: 'هفتگی',),
+                    Tab(text: 'ماهانه',),
+                    Tab(text: 'انواع دیگر',),
+                  ],
+                ) ,
+              ),
+              const Expanded(child: TabBarView(
+                children: [
+                  DailyPackages(),
+                  Center(child: Text('Weekly Packages'),),
+                  Center(child: Text('Monthly Packages'),),
+                  Center(child: Text('Other Packages'),),
+                ],
+              ))
             ],
           ),
-        ),
-        body: TabBarView(
-          children: [
-            DailyPackages(),
-            Center(child: Text('Weekly Packages'),),
-            Center(child: Text('Monthly Packages'),),
-            Center(child: Text('Other Packages'),),
-          ],
         )
       ),
     );
