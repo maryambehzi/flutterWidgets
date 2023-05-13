@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/MySchedule.dart';
 import 'DailyPackages.dart';
 import 'OtherPackagesDialog.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,14 +28,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
+late _MyHomePageState homePageState;
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() {
+    homePageState = _MyHomePageState();
+  return homePageState;}
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  var dynamicTitle = "انواع دیگر";
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -75,11 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             // Image(image: AssetImage("images/arrow_down.png"),),
                             Icon( Icons.keyboard_arrow_down),
                             SizedBox(width: 1),
-                            Text('انواع دیگر'),
+                            Text("$dynamicTitle"),
                           ],
                         ),
                       ),

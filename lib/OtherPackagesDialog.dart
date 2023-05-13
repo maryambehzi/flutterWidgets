@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+import 'package:widgets/main.dart';
+
 class OtherPackagesDialog extends StatefulWidget {
   const OtherPackagesDialog({Key? key}) : super(key: key);
 
@@ -55,15 +57,27 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
                   ),
                   ListTile(
                     title: const Text('بسته‌های شگفت انگیز', style: TextStyle(color: Colors.white),),
-                    onTap: () {},
+                    onTap: () {
+                      homePageState.setState(() {
+                        homePageState.dynamicTitle = 'بسته‌های شگفت انگیز';
+                      });
+                    },
                   ),
                   ListTile(
                     title: const Text('بسته‌های مکالمه', style: TextStyle(color: Colors.white),),
-                    onTap: () {},
+                    onTap: () {
+                      homePageState.setState(() {
+                        homePageState.dynamicTitle = 'بسته‌های مکالمه';
+                      });
+                    },
                   ),
                   ListTile(
                     title: const Text('یکساله', style: TextStyle(color: Colors.white),),
-                    onTap: () {},
+                    onTap: () {
+                      homePageState.setState(() {
+                        homePageState.dynamicTitle = 'یکساله';
+                      });
+                    },
                   ),
                 ],
               ),
