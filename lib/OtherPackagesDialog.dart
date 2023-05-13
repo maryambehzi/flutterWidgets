@@ -61,6 +61,7 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
                       homePageState.setState(() {
                         homePageState.dynamicTitle = 'بسته‌های شگفت انگیز';
                       });
+                      Navigator.pop(context);
                     },
                   ),
                   ListTile(
@@ -69,6 +70,7 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
                       homePageState.setState(() {
                         homePageState.dynamicTitle = 'بسته‌های مکالمه';
                       });
+                      Navigator.pop(context);
                     },
                   ),
                   ListTile(
@@ -77,6 +79,7 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
                       homePageState.setState(() {
                         homePageState.dynamicTitle = 'یکساله';
                       });
+                      Navigator.pop(context);
                     },
                   ),
                 ],

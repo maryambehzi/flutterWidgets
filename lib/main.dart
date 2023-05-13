@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'DailyPackages.dart';
 import 'OtherPackagesDialog.dart';
 
@@ -12,6 +13,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Color(0xFF28292B),
+      statusBarColor: Color(0xFF28292B),
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -47,19 +53,27 @@ class _MyHomePageState extends State<MyHomePage> {
       length: 4,
       child: Scaffold(
         backgroundColor: Color(0xFF28292B),
-        appBar: AppBar(
-          title: const Text('انتخاب بسته اینترنتی'),
-        ),
         body: Padding(
           padding: const EdgeInsets.all(17.0),
           child: Column(
             children: [
+
+              Padding(
+                padding: const EdgeInsets.only(top:54.0),
+                child: Image.asset("images/back_drop_down.png"),
+              ),
+
+              const Padding(
+                padding: EdgeInsets.only(top:24.0, bottom: 24.0),
+                child: Center(child: Text('انتخاب بسته اینترنتی',
+                style: TextStyle(color: Colors.white, fontWeight : FontWeight.w600 ,fontSize: 16.0),)),
+              ),
               Container(
                 alignment: AlignmentDirectional.topCenter,
                 height: 50,
                 decoration: BoxDecoration(
                   color: const Color(0xff191A1B),
-                  borderRadius: BorderRadius.circular(25.0)
+                  borderRadius: BorderRadius.circular(37.0)
                 ),
                 child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -80,21 +94,33 @@ class _MyHomePageState extends State<MyHomePage> {
                       const Tab(text: 'هفتگی',),
                       const Tab(text: 'ماهانه',),
                       Tab(
-                        child: Row(
-                          textDirection: TextDirection.rtl,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Image(image: AssetImage("images/arrow_down.png"),),
-                            Icon( Icons.keyboard_arrow_down),
-                            SizedBox(width: 1),
-                            Container(
-                              width: 55,
-                              child: Text(
-                                      "$dynamicTitle",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,),
+                        child: Container(
+                          width: 102,
+                          height: 34,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1,
+                                color: const Color(0xFF454545)
                             ),
-                          ],
+                            color: const Color(0x1ACCCCCC),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Row(
+                            textDirection: TextDirection.rtl,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Image(image: AssetImage("images/arrow_down.png"),),
+                              const Icon( Icons.keyboard_arrow_down),
+                              // SizedBox(width: 1),
+                              SizedBox(
+                                width: 53,
+                                child: Text(
+                                        "$dynamicTitle",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
