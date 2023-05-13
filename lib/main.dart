@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:Directionality(
+      home:const Directionality(
         textDirection: TextDirection.rtl,
         child: MyHomePage(),
       ),
@@ -41,41 +41,41 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         backgroundColor: Color(0xFF28292B),
         appBar: AppBar(
-          title: Text('انتخاب بسته اینترنتی'),
+          title: const Text('انتخاب بسته اینترنتی'),
         ),
         body: Padding(
-          padding: EdgeInsets.all(17.0),
+          padding: const EdgeInsets.all(17.0),
           child: Column(
             children: [
               Container(
                 alignment: AlignmentDirectional.topCenter,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Color(0xff191A1B),
+                  color: const Color(0xff191A1B),
                   borderRadius: BorderRadius.circular(25.0)
                 ),
                 child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                   child: TabBar(
                     indicator: BoxDecoration(
                       border: Border.all(
                         width: 1,
-                        color: Color(0xFFEDC76C)
+                        color: const Color(0xFFEDC76C)
                       ),
-                      color: Color(0x804A411C),
+                      color: const Color(0x804A411C),
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    labelPadding: EdgeInsets.only(left : 5,right : 5),
-                    labelColor: Color(0xFFEDC76C),
+                    labelPadding: const EdgeInsets.only(left : 5,right : 5),
+                    labelColor: const Color(0xFFEDC76C),
                     unselectedLabelColor: Colors.white,
                     tabs: [
-                      Tab(text: 'روزانه',),
-                      Tab(text: 'هفتگی',),
-                      Tab(text: 'ماهانه',),
+                      const Tab(text: 'روزانه',),
+                      const Tab(text: 'هفتگی',),
+                      const Tab(text: 'ماهانه',),
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: [
+                          children: const [
                             // Image(image: AssetImage("images/arrow_down.png"),),
                             Icon( Icons.keyboard_arrow_down),
                             SizedBox(width: 1),

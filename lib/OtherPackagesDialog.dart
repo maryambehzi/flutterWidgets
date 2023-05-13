@@ -22,7 +22,7 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
   Widget build(BuildContext context) {
     return Center(
       child: TextButton(
-        child: Visibility(
+        child: const Visibility(
           visible: true,
           child: Text('Other Packages'),
         ),
@@ -50,19 +50,19 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
               ),
               child: Column(
                 children: [
-                  ListTile(
+                  const ListTile(
                     title: Text('انواع دیگر نوع بسته', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600 ),),
                   ),
                   ListTile(
-                    title: Text('بسته‌های شگفت انگیز', style: TextStyle(color: Colors.white),),
+                    title: const Text('بسته‌های شگفت انگیز', style: TextStyle(color: Colors.white),),
                     onTap: () {},
                   ),
                   ListTile(
-                    title: Text('بسته‌های مکالمه', style: TextStyle(color: Colors.white),),
+                    title: const Text('بسته‌های مکالمه', style: TextStyle(color: Colors.white),),
                     onTap: () {},
                   ),
                   ListTile(
-                    title: Text('یکساله', style: TextStyle(color: Colors.white),),
+                    title: const Text('یکساله', style: TextStyle(color: Colors.white),),
                     onTap: () {},
                   ),
                 ],
