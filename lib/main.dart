@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:widgets/MySchedule.dart';
 import 'DailyPackages.dart';
 import 'OtherPackagesDialog.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -83,12 +81,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       const Tab(text: 'ماهانه',),
                       Tab(
                         child: Row(
+                          textDirection: TextDirection.rtl,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             // Image(image: AssetImage("images/arrow_down.png"),),
                             Icon( Icons.keyboard_arrow_down),
                             SizedBox(width: 1),
-                            Text("$dynamicTitle"),
+                            Container(
+                              width: 55,
+                              child: Text(
+                                      "$dynamicTitle",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,),
+                            ),
                           ],
                         ),
                       ),

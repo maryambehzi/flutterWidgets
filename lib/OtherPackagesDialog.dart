@@ -26,7 +26,7 @@ class _OtherPackagesDialogState extends State<OtherPackagesDialog> {
       child: TextButton(
         child: const Visibility(
           visible: true,
-          child: Text('Other Packages'),
+          child: Text('Other Packages', style: TextStyle(color: Colors.white,),),
         ),
         onPressed: () {
           showBottomSheet();
