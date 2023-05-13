@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'DailyPackages.dart';
+import 'OtherPackagesDialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home:Directionality(
+        textDirection: TextDirection.rtl,
+        child: MyHomePage(),
+      ),
     );
   }
 }
@@ -64,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelColor: Color(0xFFEDC76C),
                     unselectedLabelColor: Colors.white,
                     tabs: [
-
+                      Tab(text: 'روزانه',),
+                      Tab(text: 'هفتگی',),
+                      Tab(text: 'ماهانه',),
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -76,19 +83,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                       ),
-                      Tab(text: 'ماهانه',),
-                      Tab(text: 'هفتگی',),
-                      Tab(text: 'روزانه',),
                     ],
                   ),
                 ) ,
               ),
               const Expanded(child: TabBarView(
                 children: [
-                  Center(child: Text('Other Packages', style: TextStyle(color: Colors.white),),),
-                  Center(child: Text('Monthly Packages', style: TextStyle(color: Colors.white),),),
-                  Center(child: Text('Weekly Packages', style: TextStyle(color: Colors.white),),),
                   DailyPackages(),
+                  Center(child: Text('Weekly Packages', style: TextStyle(color: Colors.white),),),
+                  Center(child: Text('Monthly Packages', style: TextStyle(color: Colors.white),),),
+                  OtherPackagesDialog(),
                 ],
               ))
             ],
