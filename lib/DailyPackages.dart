@@ -6,7 +6,8 @@ class DailyPackages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(' Daily Packages'),
+      child: Text(' Daily Packages',
+        style: TextStyle(color: Colors.white),),
     );
   }
 }

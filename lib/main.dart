@@ -34,41 +34,61 @@ class _MyHomePageState extends State<MyHomePage> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        backgroundColor: Color(0xFF28292B),
         appBar: AppBar(
           title: Text('انتخاب بسته اینترنتی'),
         ),
         body: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(17.0),
           child: Column(
             children: [
               Container(
                 alignment: AlignmentDirectional.topCenter,
-                height: 45,
+                height: 50,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Color(0xff191A1B),
                   borderRadius: BorderRadius.circular(25.0)
                 ),
-                child: TabBar(
-                  indicator: BoxDecoration(
-                    color: Colors.yellow[200],
-                    borderRadius: BorderRadius.circular(25.0),
+                child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                  child: TabBar(
+                    indicator: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Color(0xFFEDC76C)
+                      ),
+                      color: Color(0x804A411C),
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+                    labelPadding: EdgeInsets.only(left : 5,right : 5),
+                    labelColor: Color(0xFFEDC76C),
+                    unselectedLabelColor: Colors.white,
+                    tabs: [
+
+                      Tab(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Image(image: AssetImage("images/arrow_down.png"),),
+                            Icon( Icons.keyboard_arrow_down),
+                            SizedBox(width: 1),
+                            Text('انواع دیگر'),
+                          ],
+                        ),
+                      ),
+                      Tab(text: 'ماهانه',),
+                      Tab(text: 'هفتگی',),
+                      Tab(text: 'روزانه',),
+                    ],
                   ),
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.grey,
-                  tabs: const [
-                    Tab(text: 'روزانه',),
-                    Tab(text: 'هفتگی',),
-                    Tab(text: 'ماهانه',),
-                    Tab(text: 'انواع دیگر',),
-                  ],
                 ) ,
               ),
               const Expanded(child: TabBarView(
                 children: [
+                  Center(child: Text('Other Packages', style: TextStyle(color: Colors.white),),),
+                  Center(child: Text('Monthly Packages', style: TextStyle(color: Colors.white),),),
+                  Center(child: Text('Weekly Packages', style: TextStyle(color: Colors.white),),),
                   DailyPackages(),
-                  Center(child: Text('Weekly Packages'),),
-                  Center(child: Text('Monthly Packages'),),
-                  Center(child: Text('Other Packages'),),
                 ],
               ))
             ],
