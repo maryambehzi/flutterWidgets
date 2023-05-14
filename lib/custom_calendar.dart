@@ -282,7 +282,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                     color: getIsItStartAndEndDate(date)
                                         ? Colors.white
                                         : currentMonthDate.month == date.month
-                                            ? Colors.black
+                                            ? Colors.white
                                             : Colors.grey.withOpacity(0.6),
                                     fontSize:
                                         MediaQuery.of(context).size.width > 360
@@ -298,7 +298,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                       ),
                     ),
                     Positioned(
-                      bottom: 9,
+                      bottom: 5,
                       right: 0,
                       left: 0,
                       child: Container(
