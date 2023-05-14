@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 import 'InternetPackage/DailyPackages.dart';
 import 'InternetPackage/OtherPackagesDialog.dart';
 import 'custom_calendar.dart';
@@ -40,7 +41,7 @@ class CalendarPopupView extends StatefulWidget {
       : super(key: key);
 
   final bool barrierDismissible;
-  final Function(DateTime, DateTime)? onApplyClick;
+  final Function(Jalali, Jalali)? onApplyClick;
 
   final Function()? onCancelClick;
   @override
@@ -50,8 +51,6 @@ class CalendarPopupView extends StatefulWidget {
 class _CalendarPopupViewState extends State<CalendarPopupView>
     with TickerProviderStateMixin {
   AnimationController? animationController;
-  DateTime? startDate;
-  DateTime? endDate;
 
   @override
   void initState() {

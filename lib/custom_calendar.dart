@@ -11,13 +11,13 @@ class CustomCalendarView extends StatefulWidget {
 }
 
 class _CustomCalendarViewState extends State<CustomCalendarView> {
-  List<DateTime> dateList = <DateTime>[];
-  List<DateTime> successfulPaymentDays = <DateTime>[];
-  List<DateTime> failedPaymentDays = <DateTime>[];
-  List<DateTime> planedPaymentDays = <DateTime>[];
-  DateTime currentMonthDate = DateTime.now();
-  DateTime? startDate;
-  DateTime? endDate;
+  List<Jalali> dateList = <Jalali>[];
+  List<Jalali> successfulPaymentDays = <Jalali>[];
+  List<Jalali> failedPaymentDays = <Jalali>[];
+  List<Jalali> planedPaymentDays = <Jalali>[];
+  Jalali currentMonthDate = Jalali.now();
+  Jalali? startDate;
+  Jalali? endDate;
 
   @override
   void initState() {
@@ -30,22 +30,22 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
     super.dispose();
   }
 
-  void setListOfDate(DateTime monthDate) {
+  void setListOfDate(Jalali monthDate) {
     dateList.clear();
-    final DateTime newDate = DateTime(monthDate.year, monthDate.month, 0);
+    final Jalali newDate = Jalali(monthDate.year, monthDate.month, 1);
     int previousMothDay = 0;
-    if (newDate.weekday < 7) {
-      previousMothDay = newDate.weekday;
+    debugPrint('maryam: ${newDate.weekDay}');
+    if (newDate.weekDay < 8) {
+      previousMothDay =newDate.weekDay;
+
       for (int i = 1; i <= previousMothDay; i++) {
-        dateList.add(newDate.subtract(Duration(days: previousMothDay - i)));
+        dateList.add(newDate.toDateTime().subtract(Duration(days: previousMothDay - i)).toJalali());
       }
     }
     for (int i = 0; i < (42 - previousMothDay); i++) {
-      dateList.add(newDate.add(Duration(days: i + 1)));
+      dateList.add(newDate.toDateTime().add(Duration(days: i + 1)).toJalali());
     }
-    // if (dateList[dateList.length - 7].month != monthDate.month) {
-    //   dateList.removeRange(dateList.length - 7, dateList.length);
-    // }
+
   }
 
   @override
@@ -72,8 +72,8 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                             IconButton(iconSize: 20, icon: const Icon(Icons.keyboard_arrow_left, color: Colors.white,),
                               onPressed: () {
                                 setState(() {
-                                  currentMonthDate = DateTime(currentMonthDate.year,
-                                      currentMonthDate.month, 0);
+                                  currentMonthDate = Jalali(currentMonthDate.year,
+                                      currentMonthDate.month -1, 1);
                                   setListOfDate(currentMonthDate);
                                 });
                               },
@@ -81,7 +81,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                             Center(child: Padding(
                               padding: const EdgeInsets.only(right: 90.0, left: 90.0,),
                               child: Text(
-                                convertToArabicNumber(currentMonthDate.toJalali().year.toString()) + " " +convertToPersianMonth(currentMonthDate.toJalali().month),
+                                convertToArabicNumber(currentMonthDate.year.toString()) + " " +convertToPersianMonth(currentMonthDate.month),
                                 style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.white),
@@ -90,8 +90,8 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                             IconButton(iconSize: 20, icon: const Icon(Icons.keyboard_arrow_right, color: Colors.white,),
                               onPressed: () {
                                 setState(() {
-                                  currentMonthDate = DateTime(currentMonthDate.year,
-                                      currentMonthDate.month + 2, 0);
+                                  currentMonthDate = Jalali(currentMonthDate.year,
+                                      currentMonthDate.month + 1, 1);
                                   setListOfDate(currentMonthDate);
                                 });
                               },
@@ -144,12 +144,11 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
 
   List<Widget> getDaysNoUI() {
     final List<Widget> noList = <Widget>[];
-    debugPrint('maryam: $dateList');
     int count = 0;
     for (int i = 0; i < dateList.length / 7; i++) {
       final List<Widget> listUI = <Widget>[];
       for (int i = 0; i < 7; i++) {
-        final DateTime date = dateList[count];
+        final Jalali date = dateList[count];
         listUI.add(
           Expanded(
             child: AspectRatio(
@@ -192,9 +191,9 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                       padding: const EdgeInsets.all(2),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: DateTime.now().day == date.day &&
-                              DateTime.now().month == date.month &&
-                              DateTime.now().year == date.year
+                          color: Jalali.now().day == date.day &&
+                              Jalali.now().month == date.month &&
+                              Jalali.now().year == date.year
                               // ? Colors.green
                               ? Color(0xFF244341)
                               : Colors.transparent,
@@ -203,11 +202,11 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         ),
                         child: Center(
                           child: Text(
-                            convertToArabicNumber(date.toJalali().day.toString()),
+                            convertToArabicNumber(date.day.toString()),
                             style: TextStyle(
-                                color: getIsItPassedDay(date)
-                                    ? Color(0xFF87898C)
-                                    : Colors.white,
+                                color: getIsItInTheSameMonth(date)
+                                    ? Colors.transparent
+                                    :  getIsItPassedDay(date) ? Color(0xFF87898C) : Colors.white,
                                     // ? Colors.white
                                     // : Colors.grey.withOpacity(0.6),
                                 fontSize:
@@ -263,6 +262,16 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                 ? Color(0xFFFF8C8C)
                                 : Colors.transparent,
                             shape: BoxShape.circle),
+                        child :Center(
+                          child: Text(
+                            convertToArabicNumber(date.day.toString()),
+                            style: TextStyle(
+                                color: getIsItInTheSameMonth(date)
+                                    ? Color(0xFF87898C)
+                                    : Colors.transparent,
+                                ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -284,31 +293,39 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
   }
 
 
-  bool getIsItPlanedPayment(DateTime date) {
+  bool getIsItPlanedPayment(Jalali date) {
     if(planedPaymentDays.contains(date))
       return true;
     else
       return false;
   }
-  bool getIsItSuccessfulPayment(DateTime date) {
+  bool getIsItSuccessfulPayment(Jalali date) {
     if(successfulPaymentDays.contains(date))
       return true;
     else
       return false;
   }
-  bool getIsItFailedPayment(DateTime date) {
+  bool getIsItFailedPayment(Jalali date) {
     if(failedPaymentDays.contains(date))
       return true;
     else
       return false;
   }
 
-  bool getIsItPassedDay(DateTime date) {
-    if(DateTime.now().isBefore(date)) {
+  bool getIsItPassedDay(Jalali date) {
+    if(Jalali.now().toDateTime().isBefore(date.toDateTime())) {
       return false;
-    }else if(DateTime.now().day == date.day &&
-        DateTime.now().month == date.month &&
-        DateTime.now().year == date.year){
+    }else if(Jalali.now().day == date.day &&
+        Jalali.now().month == date.month &&
+        Jalali.now().year == date.year){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  bool getIsItInTheSameMonth(Jalali date) {
+    if(currentMonthDate.month == date.month){
       return false;
     } else {
       return true;
@@ -323,7 +340,6 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
       res += arabics[int.parse(element)];
     });
 
-/*   final latins = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; */
     return res;
   }
 
@@ -377,25 +393,25 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
 
 
     switch(number) {
-      case 5: {
+      case 0: {
         return "شنبه" ;
       }
-      case 6: {
+      case 1: {
         return "یک‌‌شنبه" ;
       }
-      case 0: {
+      case 2: {
         return "دوشنبه" ;
       }
-      case 1: {
+      case 3: {
         return "سه‌شنبه" ;
       }
-      case 2: {
+      case 4: {
         return "چهارشنبه" ;
       }
-      case 3: {
+      case 5: {
         return "پنج‌شنبه" ;
       }
-      case 4: {
+      case 6: {
         return "جمعه" ;
       }
       default: {
