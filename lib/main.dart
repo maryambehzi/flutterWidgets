@@ -181,13 +181,13 @@ class _MyInternetHomePageState extends State<MyInternetHomePage> {
                     indicator: BoxDecoration(
                       border: Border.all(
                         width: 1,
-                        color: const Color(0xFFEDC76C)
+                        color: Colors.black
                       ),
-                      color: const Color(0x804A411C),
+                      color: Colors.black,
                       borderRadius: BorderRadius.circular(25.0),
                     ),
                     labelPadding: const EdgeInsets.only(left : 5,right : 5),
-                    labelColor: const Color(0xFFEDC76C),
+                    labelColor: Colors.black,
                     unselectedLabelColor: Colors.white,
                     tabs: [
                       const Tab(text: 'روزانه',),

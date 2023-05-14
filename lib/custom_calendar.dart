@@ -30,30 +30,12 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
     super.dispose();
   }
 
-  void setListOfDate(Jalali monthDate) {
-    dateList.clear();
-    final Jalali newDate = Jalali(monthDate.year, monthDate.month, 1);
-    int previousMothDay = 0;
-    debugPrint('maryam: ${newDate.weekDay}');
-    if (newDate.weekDay < 8) {
-      previousMothDay =newDate.weekDay;
-
-      for (int i = 1; i <= previousMothDay; i++) {
-        dateList.add(newDate.toDateTime().subtract(Duration(days: previousMothDay - i)).toJalali());
-      }
-    }
-    for (int i = 0; i < (42 - previousMothDay); i++) {
-      dateList.add(newDate.toDateTime().add(Duration(days: i + 1)).toJalali());
-    }
-
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Directionality(
+      textDirection: TextDirection.rtl,
       child: Column(
         children: <Widget>[
-
             Row(
               children: <Widget>[
                 Row(
@@ -61,7 +43,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 17.0, right: 16.0, left: 16.0),
                       child: Container(
-                        height: 42,
+                        height: 60,
                         width: 350,
                         decoration: BoxDecoration(
                           color: const Color(0x0DFFFFFF),
@@ -69,12 +51,21 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         ),
                         child: Row(
                           children: [
-                            IconButton(iconSize: 20, icon: const Icon(Icons.keyboard_arrow_left, color: Colors.white,),
+                            IconButton(iconSize: 20, icon: const Icon(Icons.keyboard_arrow_right, color: Colors.white,),
                               onPressed: () {
                                 setState(() {
-                                  currentMonthDate = Jalali(currentMonthDate.year,
-                                      currentMonthDate.month -1, 1);
-                                  setListOfDate(currentMonthDate);
+                                  if(currentMonthDate.month - 1 < 1) {
+                                  currentMonthDate = Jalali(
+                                      currentMonthDate.year-1,
+                                      12,
+                                      1);
+                                } else {
+                                    currentMonthDate = Jalali(
+                                        currentMonthDate.year,
+                                        currentMonthDate.month - 1,
+                                        1);
+                                  }
+                                setListOfDate(currentMonthDate);
                                 });
                               },
                             ),
@@ -87,12 +78,21 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                                     color: Colors.white),
                               )
                             )),
-                            IconButton(iconSize: 20, icon: const Icon(Icons.keyboard_arrow_right, color: Colors.white,),
+                            IconButton(iconSize: 20, icon: const Icon(Icons.keyboard_arrow_left, color: Colors.white,),
                               onPressed: () {
                                 setState(() {
-                                  currentMonthDate = Jalali(currentMonthDate.year,
-                                      currentMonthDate.month + 1, 1);
-                                  setListOfDate(currentMonthDate);
+                                  if(currentMonthDate.month + 1 > 12) {
+                                  currentMonthDate = Jalali(
+                                      currentMonthDate.year+1,
+                                      1,
+                                      1);
+                                } else {
+                                    currentMonthDate = Jalali(
+                                        currentMonthDate.year,
+                                        currentMonthDate.month + 1,
+                                        1);
+                                  }
+                                setListOfDate(currentMonthDate);
                                 });
                               },
                             ),
@@ -122,6 +122,29 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
     );
   }
 
+  void setListOfDate(Jalali monthDate) {
+
+    fillSampleData();
+
+    dateList.clear();
+    final Jalali newDate = Jalali(monthDate.year, monthDate.month, 1);
+    int previousMothDay = 0;
+
+    if (newDate.weekDay < 8) {
+      previousMothDay =newDate.weekDay;
+
+      for (int i = 1; i <= previousMothDay; i++) {
+        dateList.add(newDate.toDateTime().subtract(Duration(days: previousMothDay - i)).toJalali());
+      }
+    }
+    for (int i = 0; i < (42 - previousMothDay); i++) {
+      dateList.add(newDate.toDateTime().add(Duration(days: i + 1)).toJalali());
+    }
+    debugPrint('maryam: ${dateList}');
+
+
+  }
+
   List<Widget> getDaysNameUI() {
     final List<Widget> listUI = <Widget>[];
     for (int i = 0; i < 7; i++) {
@@ -130,7 +153,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
           child: Center(
             child: Text(
               convertToPersianWeek(i),
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: Color(0xFF87898C)),
@@ -161,11 +184,11 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                       child: Material(
                         color: Colors.transparent,
                         child: Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 2,
                               bottom: 2,),
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.transparent,
                             ),
                           ),
@@ -177,7 +200,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                       padding: const EdgeInsets.all(2),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: getIsItPlanedPayment(date)
+                          color: getIsItPlanedPayment(date) && !getIsItInTheSameMonth(date)
                             ? Color(0x33FFFFFF)
                             : Colors.transparent,
                           borderRadius:
@@ -185,7 +208,20 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         ),
                       ),
                     ),
-
+                    Positioned(
+                      bottom: 1,
+                      right: 0,
+                      left: 23,
+                      child: Container(
+                        height: 12,
+                        width: 12,
+                        decoration: BoxDecoration(
+                            color: getIsItPlanedPayment(date) && getIsItInTheSameMonth(date) ? Colors.transparent : getIsItPlanedPayment(date)
+                                ? Colors.deepPurple
+                                : Colors.transparent,
+                            shape: BoxShape.circle),
+                      ),
+                    ),
                     //The Day is Today
                     Padding(
                       padding: const EdgeInsets.all(2),
@@ -227,15 +263,15 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         height: 6,
                         width: 6,
                         decoration: BoxDecoration(
-                            boxShadow: getIsItSuccessfulPayment(date)
+                            boxShadow: getIsItInTheSameMonth(date) ? null : getIsItSuccessfulPayment(date)
                                 ? <BoxShadow>[
                               BoxShadow(
-                                  color: Colors.grey.withOpacity(0.6),
+                                  color: Colors.grey,
                                   blurRadius: 4,
                                   offset: const Offset(0, 0)),
                             ]
                                 : null,
-                          color:getIsItSuccessfulPayment(date)
+                          color: getIsItInTheSameMonth(date) ? Colors.transparent : getIsItSuccessfulPayment(date)
                               ? Color(0xFF36F1CD)
                           : Colors.transparent,
                             shape: BoxShape.circle),
@@ -250,15 +286,15 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         height: 6,
                         width: 6,
                         decoration: BoxDecoration(
-                            boxShadow: getIsItSuccessfulPayment(date)
+                            boxShadow:  getIsItInTheSameMonth(date) ? null : getIsItFailedPayment(date)
                                 ? <BoxShadow>[
                               BoxShadow(
-                                  color: Colors.grey.withOpacity(0.6),
-                                  blurRadius: 4,
+                                  color: Colors.grey,
+                                  blurRadius: 8,
                                   offset: const Offset(0, 0)),
                             ]
                                 : null,
-                            color:getIsItFailedPayment(date)
+                            color: getIsItInTheSameMonth(date) ? Colors.transparent : getIsItFailedPayment(date)
                                 ? Color(0xFFFF8C8C)
                                 : Colors.transparent,
                             shape: BoxShape.circle),
@@ -266,7 +302,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                           child: Text(
                             convertToArabicNumber(date.day.toString()),
                             style: TextStyle(
-                                color: getIsItInTheSameMonth(date)
+                                color: getIsItInTheSameMonth(date) ? Colors.transparent : getIsItInTheSameMonth(date)
                                     ? Color(0xFF87898C)
                                     : Colors.transparent,
                                 ),
@@ -418,6 +454,29 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
         return "ov" ;
       }
     }
+  }
+
+  void fillSampleData(){
+    failedPaymentDays.add(Jalali(1402, 1, 26, 0, 0, 0, 0));
+    failedPaymentDays.add(Jalali(1402, 1, 1, 0, 0, 0, 0));
+    failedPaymentDays.add(Jalali(1402, 1, 5, 0, 0, 0, 0));
+    failedPaymentDays.add(Jalali(1402, 1, 31, 0, 0, 0, 0));
+    failedPaymentDays.add(Jalali(1402, 2, 1, 0, 0, 0, 0));
+    failedPaymentDays.add(Jalali(1402, 2, 5, 0, 0, 0, 0));
+    failedPaymentDays.add(Jalali(1402, 2, 24, 0, 0, 0, 0));
+
+    successfulPaymentDays.add(Jalali(1402, 1, 26, 0, 0, 0, 0));
+    successfulPaymentDays.add(Jalali(1402, 1, 4, 0, 0, 0, 0));
+    successfulPaymentDays.add(Jalali(1402, 1, 19, 0, 0, 0, 0));
+    successfulPaymentDays.add(Jalali(1402, 1, 27, 0, 0, 0, 0));
+    successfulPaymentDays.add(Jalali(1402, 2, 4, 0, 0, 0, 0));
+    successfulPaymentDays.add(Jalali(1402, 2, 19, 0, 0, 0, 0));
+    successfulPaymentDays.add(Jalali(1402, 2, 24, 0, 0, 0, 0));
+
+
+
+    planedPaymentDays.add(Jalali(1402,2,30,0, 0, 0, 0));
+    planedPaymentDays.add(Jalali(1402,3,16,0, 0, 0, 0));
   }
 
 }
