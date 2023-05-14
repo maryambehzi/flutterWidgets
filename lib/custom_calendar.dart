@@ -24,6 +24,9 @@ class CustomCalendarView extends StatefulWidget {
 
 class _CustomCalendarViewState extends State<CustomCalendarView> {
   List<DateTime> dateList = <DateTime>[];
+  List<DateTime> successfulPaymentDays = <DateTime>[];
+  List<DateTime> failedPaymentDays = <DateTime>[];
+  List<DateTime> planedPaymentDays = <DateTime>[];
   DateTime currentMonthDate = DateTime.now();
   DateTime? startDate;
   DateTime? endDate;
@@ -186,7 +189,7 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                               color: startDate != null && endDate != null
                                   ? getIsItStartAndEndDate(date) ||
                                           getIsInRange(date)
-                                      ? Colors.green
+                                      ? Colors.red
                                           .withOpacity(0.4)
                                       : Colors.transparent
                                   : Colors.transparent,
@@ -209,108 +212,230 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
                         ),
                       ),
                     ),
-                    Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius:
+                    //Planed Payment
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: getIsItPlanedPayment(date)
+                            ? Color(0x33FFFFFF)
+                            : Colors.transparent,
+                          borderRadius:
                             const BorderRadius.all(Radius.circular(32.0)),
-                        onTap: () {
-                          if (currentMonthDate.month == date.month) {
-                            if (widget.minimumDate != null &&
-                                widget.maximumDate != null) {
-                              final DateTime newminimumDate = DateTime(
-                                  widget.minimumDate!.year,
-                                  widget.minimumDate!.month,
-                                  widget.minimumDate!.day - 1);
-                              final DateTime newmaximumDate = DateTime(
-                                  widget.maximumDate!.year,
-                                  widget.maximumDate!.month,
-                                  widget.maximumDate!.day + 1);
-                              if (date.isAfter(newminimumDate) &&
-                                  date.isBefore(newmaximumDate)) {
-                                onDateClick(date);
-                              }
-                            } else if (widget.minimumDate != null) {
-                              final DateTime newminimumDate = DateTime(
-                                  widget.minimumDate!.year,
-                                  widget.minimumDate!.month,
-                                  widget.minimumDate!.day - 1);
-                              if (date.isAfter(newminimumDate)) {
-                                onDateClick(date);
-                              }
-                            } else if (widget.maximumDate != null) {
-                              final DateTime newmaximumDate = DateTime(
-                                  widget.maximumDate!.year,
-                                  widget.maximumDate!.month,
-                                  widget.maximumDate!.day + 1);
-                              if (date.isBefore(newmaximumDate)) {
-                                onDateClick(date);
-                              }
-                            } else {
-                              onDateClick(date);
-                            }
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(2),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: getIsItStartAndEndDate(date)
-                                  ? Colors.green
-                                  : Colors.transparent,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(32.0)),
-                              border: Border.all(
-                                color: getIsItStartAndEndDate(date)
-                                    ? Colors.white
-                                    : Colors.transparent,
-                                width: 2,
-                              ),
-                              boxShadow: getIsItStartAndEndDate(date)
-                                  ? <BoxShadow>[
-                                      BoxShadow(
-                                          color: Colors.grey.withOpacity(0.6),
-                                          blurRadius: 4,
-                                          offset: const Offset(0, 0)),
-                                    ]
-                                  : null,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${date.day}',
-                                style: TextStyle(
-                                    color: getIsItStartAndEndDate(date)
-                                        ? Colors.white
-                                        : currentMonthDate.month == date.month
-                                            ? Colors.white
-                                            : Colors.grey.withOpacity(0.6),
-                                    fontSize:
-                                        MediaQuery.of(context).size.width > 360
-                                            ? 18
-                                            : 16,
-                                    fontWeight: getIsItStartAndEndDate(date)
-                                        ? FontWeight.bold
-                                        : FontWeight.normal),
-                              ),
-                            ),
+                          // boxShadow: getIsItStartAndEndDate(date)
+                          //     ? <BoxShadow>[
+                          //   BoxShadow(
+                          //       color: Colors.grey.withOpacity(0.6),
+                          //       blurRadius: 4,
+                          //       offset: const Offset(0, 0)),
+                          // ]
+                          //     : null,
+                        ),
+                        // child: Center(
+                        //   child: Text(
+                        //     '${date.day}',
+                        //     style: TextStyle(
+                        //         color: getIsItStartAndEndDate(date)
+                        //             ? Colors.white
+                        //             : currentMonthDate.month == date.month
+                        //             ? Colors.white
+                        //             : Colors.grey.withOpacity(0.6),
+                        //         fontSize:
+                        //         MediaQuery.of(context).size.width > 360
+                        //             ? 18
+                        //             : 16,
+                        //         fontWeight: getIsItStartAndEndDate(date)
+                        //             ? FontWeight.bold
+                        //             : FontWeight.normal),
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                    // Material(
+                    //   color: Colors.transparent,
+                    //   child: InkWell(
+                    //     borderRadius:
+                    //         const BorderRadius.all(Radius.circular(32.0)),
+                    //     onTap: () {
+                    //       if (currentMonthDate.month == date.month) {
+                    //         if (widget.minimumDate != null &&
+                    //             widget.maximumDate != null) {
+                    //           final DateTime newminimumDate = DateTime(
+                    //               widget.minimumDate!.year,
+                    //               widget.minimumDate!.month,
+                    //               widget.minimumDate!.day - 1);
+                    //           final DateTime newmaximumDate = DateTime(
+                    //               widget.maximumDate!.year,
+                    //               widget.maximumDate!.month,
+                    //               widget.maximumDate!.day + 1);
+                    //           if (date.isAfter(newminimumDate) &&
+                    //               date.isBefore(newmaximumDate)) {
+                    //             onDateClick(date);
+                    //           }
+                    //         } else if (widget.minimumDate != null) {
+                    //           final DateTime newminimumDate = DateTime(
+                    //               widget.minimumDate!.year,
+                    //               widget.minimumDate!.month,
+                    //               widget.minimumDate!.day - 1);
+                    //           if (date.isAfter(newminimumDate)) {
+                    //             onDateClick(date);
+                    //           }
+                    //         } else if (widget.maximumDate != null) {
+                    //           final DateTime newmaximumDate = DateTime(
+                    //               widget.maximumDate!.year,
+                    //               widget.maximumDate!.month,
+                    //               widget.maximumDate!.day + 1);
+                    //           if (date.isBefore(newmaximumDate)) {
+                    //             onDateClick(date);
+                    //           }
+                    //         } else {
+                    //           onDateClick(date);
+                    //         }
+                    //       }
+                    //     },
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(2),
+                    //       child: Container(
+                    //         decoration: BoxDecoration(
+                    //           color: getIsItStartAndEndDate(date)
+                    //               ? Colors.blue
+                    //               : Colors.transparent,
+                    //           borderRadius:
+                    //               const BorderRadius.all(Radius.circular(32.0)),
+                    //           border: Border.all(
+                    //             color: getIsItStartAndEndDate(date)
+                    //                 ? Colors.white
+                    //                 : Colors.transparent,
+                    //             width: 2,
+                    //           ),
+                    //           boxShadow: getIsItStartAndEndDate(date)
+                    //               ? <BoxShadow>[
+                    //                   BoxShadow(
+                    //                       color: Colors.grey.withOpacity(0.6),
+                    //                       blurRadius: 4,
+                    //                       offset: const Offset(0, 0)),
+                    //                 ]
+                    //               : null,
+                    //         ),
+                    //         child: Center(
+                    //           child: Text(
+                    //             '${date.day}',
+                    //             style: TextStyle(
+                    //                 color: getIsItStartAndEndDate(date)
+                    //                     ? Colors.white
+                    //                     : currentMonthDate.month == date.month
+                    //                         ? Colors.white
+                    //                         : Colors.grey.withOpacity(0.6),
+                    //                 fontSize:
+                    //                     MediaQuery.of(context).size.width > 360
+                    //                         ? 18
+                    //                         : 16,
+                    //                 fontWeight: getIsItStartAndEndDate(date)
+                    //                     ? FontWeight.bold
+                    //                     : FontWeight.normal),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    //The Day is Today
+                    Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: DateTime.now().day == date.day &&
+                              DateTime.now().month == date.month &&
+                              DateTime.now().year == date.year
+                              // ? Colors.green
+                              ? Color(0xFF244341)
+                              : Colors.transparent,
+                          borderRadius:
+                          const BorderRadius.all(Radius.circular(32.0)),
+                          border: Border.all(
+                            color: getIsItStartAndEndDate(date)
+                                ? Colors.white
+                                : Colors.transparent,
+                            width: 2,
+                          ),
+                          boxShadow: getIsItStartAndEndDate(date)
+                              ? <BoxShadow>[
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.6),
+                                blurRadius: 4,
+                                offset: const Offset(0, 0)),
+                          ]
+                              : null,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${date.day}',
+                            style: TextStyle(
+                                color: getIsItPassedDay(date)
+                                    ? Color(0xFF87898C)
+                                    : Colors.white,
+                                    // ? Colors.white
+                                    // : Colors.grey.withOpacity(0.6),
+                                fontSize:
+                                MediaQuery.of(context).size.width > 360
+                                    ? 18
+                                    : 16,
+                                fontWeight: getIsItStartAndEndDate(date)
+                                    ? FontWeight.bold
+                                    : FontWeight.normal),
                           ),
                         ),
                       ),
                     ),
+                    //Successful Payment dot
                     Positioned(
                       bottom: 5,
                       right: 0,
+                      left: getIsItFailedPayment(date) ? 7 : 0,
+                      child: Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            boxShadow: getIsItSuccessfulPayment(date)
+                                ? <BoxShadow>[
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 0)),
+                            ]
+                                : null,
+                          color:getIsItSuccessfulPayment(date)
+                              ? Color(0xFF36F1CD)
+                          : Colors.transparent,
+                            // color: DateTime.now().day == date.day &&
+                            //         DateTime.now().month == date.month &&
+                            //         DateTime.now().year == date.year
+                            //     ? getIsInRange(date)
+                            //         ? Colors.white
+                            //         : Colors.green
+                            //     : Colors.transparent,
+                            shape: BoxShape.circle),
+                      ),
+                    ),
+                    //Failed Payment Dot
+                    Positioned(
+                      bottom: 5,
+                      right: getIsItSuccessfulPayment(date) ? 7 : 0,
                       left: 0,
                       child: Container(
                         height: 6,
                         width: 6,
                         decoration: BoxDecoration(
-                            color: DateTime.now().day == date.day &&
-                                    DateTime.now().month == date.month &&
-                                    DateTime.now().year == date.year
-                                ? getIsInRange(date)
-                                    ? Colors.white
-                                    : Colors.green
+                            boxShadow: getIsItSuccessfulPayment(date)
+                                ? <BoxShadow>[
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 0)),
+                            ]
+                                : null,
+                            color:getIsItFailedPayment(date)
+                                ? Color(0xFFFF8C8C)
                                 : Colors.transparent,
                             shape: BoxShape.circle),
                       ),
@@ -418,4 +543,27 @@ class _CustomCalendarViewState extends State<CustomCalendarView> {
       } catch (_) {}
     });
   }
+
+  bool getIsItPlanedPayment(DateTime date) {
+      return false;
+  }
+  bool getIsItSuccessfulPayment(DateTime date) {
+      return true;
+  }
+  bool getIsItFailedPayment(DateTime date) {
+      return true;
+  }
+
+  bool getIsItPassedDay(DateTime date) {
+    if(DateTime.now().isBefore(date)) {
+      return false;
+    }else if(DateTime.now().day == date.day &&
+        DateTime.now().month == date.month &&
+        DateTime.now().year == date.year){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }
