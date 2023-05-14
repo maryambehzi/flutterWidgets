@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'InternetPackage/DailyPackages.dart';
 import 'InternetPackage/OtherPackagesDialog.dart';
 import 'custom_calendar.dart';
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Color(0xFF28292B),
       statusBarColor: Color(0xFF28292B),
     ));
@@ -35,25 +34,17 @@ class MyApp extends StatelessWidget {
 class CalendarPopupView extends StatefulWidget {
   const CalendarPopupView(
       {Key? key,
-        this.initialStartDate,
-        this.initialEndDate,
         this.onApplyClick,
         this.onCancelClick,
-        this.barrierDismissible = true,
-        this.minimumDate,
-        this.maximumDate})
+        this.barrierDismissible = true,})
       : super(key: key);
 
-  final DateTime? minimumDate;
-  final DateTime? maximumDate;
   final bool barrierDismissible;
-  final DateTime? initialStartDate;
-  final DateTime? initialEndDate;
   final Function(DateTime, DateTime)? onApplyClick;
 
   final Function()? onCancelClick;
   @override
-  _CalendarPopupViewState createState() => _CalendarPopupViewState();
+  State<CalendarPopupView> createState() => _CalendarPopupViewState();
 }
 
 class _CalendarPopupViewState extends State<CalendarPopupView>
@@ -66,12 +57,6 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 400), vsync: this);
-    if (widget.initialStartDate != null) {
-      startDate = widget.initialStartDate;
-    }
-    if (widget.initialEndDate != null) {
-      endDate = widget.initialEndDate;
-    }
     animationController?.forward();
     super.initState();
   }
@@ -110,7 +95,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                       width: 385,
                       height: 440,
                       decoration: BoxDecoration(
-                        color: Color(0x1ACCCCCC),
+                        color: const Color(0x1ACCCCCC),
                         borderRadius:
                         const BorderRadius.all(Radius.circular(24.0)),
                         boxShadow: <BoxShadow>[
@@ -128,20 +113,8 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            CustomCalendarView(
-                              minimumDate: widget.minimumDate,
-                              maximumDate: widget.maximumDate,
-                              initialEndDate: widget.initialEndDate,
-                              initialStartDate: widget.initialStartDate,
-                              startEndDateChange: (DateTime startDateData,
-                                  DateTime endDateData) {
-                                setState(() {
-                                  startDate = startDateData;
-                                  endDate = endDateData;
-                                });
-                              },
-                            ),
+                          children: const <Widget>[
+                            CustomCalendarView(),
                           ],
                         ),
                       ),
