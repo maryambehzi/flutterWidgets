@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'DailyPackages.dart';
-import 'OtherPackagesDialog.dart';
+import 'InternetPackage/DailyPackages.dart';
+import 'InternetPackage/OtherPackagesDialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,24 +26,28 @@ class MyApp extends StatelessWidget {
       ),
       home:const Directionality(
         textDirection: TextDirection.rtl,
-        child: MyHomePage(),
+        child: MyInternetHomePage(),
       ),
     );
   }
 }
 
-late _MyHomePageState homePageState;
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+
+
+//Internet Package
+late _MyInternetHomePageState homePageState;
+
+class MyInternetHomePage extends StatefulWidget {
+  const MyInternetHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() {
-    homePageState = _MyHomePageState();
+  State<MyInternetHomePage> createState() {
+    homePageState = _MyInternetHomePageState();
   return homePageState;}
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyInternetHomePageState extends State<MyInternetHomePage> {
 
   var dynamicTitle = "انواع دیگر";
 
