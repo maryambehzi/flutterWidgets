@@ -105,10 +105,10 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                 },
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.all(1.0),
                     child: Container(
-                      width: 344,
-                      height: 380,
+                      width: 385,
+                      height: 440,
                       decoration: BoxDecoration(
                         color: Color(0x1ACCCCCC),
                         borderRadius:
