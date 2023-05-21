@@ -1,6 +1,106 @@
 import 'package:flutter/material.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
+
+
+class CalendarPopupView extends StatefulWidget {
+  const CalendarPopupView(
+      {Key? key,
+        this.onApplyClick,
+        this.onCancelClick,
+        this.barrierDismissible = true,})
+      : super(key: key);
+
+  final bool barrierDismissible;
+  final Function(Jalali, Jalali)? onApplyClick;
+
+  final Function()? onCancelClick;
+  @override
+  State<CalendarPopupView> createState() => _CalendarPopupViewState();
+}
+
+class _CalendarPopupViewState extends State<CalendarPopupView>
+    with TickerProviderStateMixin {
+  AnimationController? animationController;
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 400), vsync: this);
+    animationController?.forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Scaffold(
+        backgroundColor: const Color(0x33000000),
+        body: AnimatedBuilder(
+          animation: animationController!,
+          builder: (BuildContext context, Widget? child) {
+            return AnimatedOpacity(
+              duration: const Duration(milliseconds: 100),
+              opacity: animationController!.value,
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                onTap: () {
+                  if (widget.barrierDismissible) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      width: 385,
+                      height: 440,
+                      decoration: BoxDecoration(
+                        color: const Color(0x1ACCCCCC),
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(24.0)),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              offset: const Offset(4, 4),
+                              blurRadius: 8.0),
+                        ],
+                      ),
+                      child: InkWell(
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(24.0)),
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: const <Widget>[
+                            CustomCalendarView(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
 class CustomCalendarView extends StatefulWidget {
   const CustomCalendarView(
       {Key? key,})

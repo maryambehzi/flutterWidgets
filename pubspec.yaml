@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shamsi_date: ^1.0.1
   intl: ^0.17.0
+  math_expressions: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,9 @@ flutter:
   assets:
     - images/arrow_down.png
     - images/back_drop_down.png
+    - images/upper_notch_receipt.png
+    - images/failed_smiley.png
+    - images/receipt_out_put_gradiant.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
