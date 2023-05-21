@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:widgets/Calender/custom_calendar.dart';
 import 'package:widgets/CardBalance/CollapsingScreen.dart';
-import 'package:widgets/InternetPackage/internetTabBar.dart';
 import 'package:widgets/receiptPage/NotchClipperCustom.dart';
+import 'package:widgets/Calender/custom_calendar.dart';
+import 'package:widgets/InternetPackage/internetTabBar.dart';
 
 void main() {
   runApp(const MyApp());
