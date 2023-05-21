@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:widgets/CardBalance/TopHeader.dart';
 
 
 class ShareReceiptPage extends StatefulWidget {
@@ -12,6 +13,7 @@ class _ShareReceiptPageState extends State<ShareReceiptPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF0D0E0E),
       body: Padding(
         // padding: const EdgeInsets.only(top: 102.0, right: 32.0, left: 32.0, bottom: 64.0),
         padding: const EdgeInsets.only(top: 42),
@@ -38,45 +40,169 @@ class _ShareReceiptPageState extends State<ShareReceiptPage> {
 
             // Payment description
             const Padding(
-              padding: EdgeInsets.only(top: 96.0),
+              padding: EdgeInsets.only(top: 85.0),
               child: Text("کارت به کارت با موفقیت انجام شد", style: TextStyle(color: Colors.white, fontSize: 14.0, fontWeight: FontWeight.w500),),
             ),
 
-            //green container receipt
             Padding(
-              padding: const EdgeInsets.only(right: 24.0, left: 24.0, top: 154.0),
+              padding: const EdgeInsets.only(right: 24.0, left: 24.0, top: 144.0),
               child: Container(
-                width: 279,
-                height: 295,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF2A4A45),
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30),),
-                ),
-              ),
-            ),
+                height: 280,
+                child: DashWidget(
+                    width: 260,
+                    cornerRadius: 24,
+                    dashColor: Color(0xFF232526),
+                    punchPosition: 85,
+                    boxShadow: const BoxShadow(color: Colors.transparent),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [Color(0xff324A48), Color(0xff32393D)]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: Row(
+                              children: const [
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 16.0),
+                                    child: Text(
+                                      " ریال ۴۶۰،۰۰۰",
+                                      style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 16.0),
+                                  child: Text(
+                                    ":مبلغ",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                    "هدیه احمدی",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                  ),
+                              ),
+                              Text(
+                                  ":صاحب کارت",
+                                  style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 20.0),
+                                  child: Text(
+                                    "بانک سامان",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 20.0),
+                                child: Text(
+                                  ":بانک",
+                                  style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
 
-            //green container receipt gradiant
-            Padding(
-              padding: const EdgeInsets.only(right: 24.0, left: 24.0, top: 154.0),
-              child: Container(
-                width: 279,
-                height: 295,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(30),bottomLeft: Radius.circular(30),),
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: <Color>[
-                        Color(0xBB1A1D1F),
-                        Colors.transparent,
-                      ],)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                    "IR۸۹۰۹۵۸ ۰۰۰۰۹۶۸۸۵۵۵۵۷۷۰۲۲۱",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                  ),
+                              ),
+                              Text(
+                                  ":شماره شبا",
+                                  style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                    " ۲٬۰۰۰ ریال",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                  ),
+                              ),
+                              Text(
+                                  ":کارمزد",
+                                  style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                    "۱۴۰۱/۰۶/۱۲ - ۱۸:۴۳",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                  ),
+                              ),
+                              Text(
+                                  ":تاریخ و زمان",
+                                  style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                    "۱۸۲۷۶۴۸۹۰۱",
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w600),
+                                  ),
+                              ),
+                              Text(
+                                  ":شماره پیگیری",
+                                  style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC), fontWeight: FontWeight.w400),
+                                ),
+                            ],
+                          ),
+                        ),
+                        ],
+                    ),
                 ),
               ),
             ),
 
             // //receipt_out_put_gradiant
             Padding(
-              padding: const EdgeInsets.only(top: 154.0),
+              padding: const EdgeInsets.only(top: 144.0),
               child: Container(
                 width: 295,
                 height: 20,
@@ -92,38 +218,16 @@ class _ShareReceiptPageState extends State<ShareReceiptPage> {
                 ),
               ),
             ),
+
             Padding(
-              padding: const EdgeInsets.only(top: 154.0),
+              padding: const EdgeInsets.only(top: 440.0),
               child: Container(
-                width: 295,
-                height: 20,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(24.0)),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: <Color>[
-                        Colors.black,
-                        Colors.transparent,
-                      ],)
+                width: 280,
+                height: 70,
+                decoration: BoxDecoration(
+                  color: Color(0x1ACCCCCC),
+                  borderRadius: BorderRadius.circular(10)
                 ),
-                // child: Column(
-                //   children: [
-                //     const ListTile(
-                //       title: Text('انواع دیگر نوع بسته', style: TextStyle(color: Colors.white ),),
-                //     ),
-                //     ListTile(
-                //       title: const Text('بسته‌های شگفت انگیز', style: TextStyle(color: Colors.white),),
-                //
-                //     ),
-                //     ListTile(
-                //       title: const Text('بسته‌های مکالمه', style: TextStyle(color: Colors.white),),
-                //     ),
-                //     ListTile(
-                //       title: const Text('یکساله', style: TextStyle(color: Colors.white),),
-                //     ),
-                //   ],
-                // ),
               ),
             )
           ],
