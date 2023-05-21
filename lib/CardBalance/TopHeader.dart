@@ -24,8 +24,8 @@ class TopHeaderDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     var small = Container(
       key: const ValueKey("small"),
-      color: Color(0XFF28292B),
-      child: Center(
+      color: const Color(0XFF28292B),
+      child: const Center(
         child: SingleChildScrollView(
           child: BalanceWidget(
             expand: false,
@@ -36,8 +36,8 @@ class TopHeaderDelegate extends SliverPersistentHeaderDelegate {
 
     var large = Container(
       key: const ValueKey("large"),
-      color: Color(0XFF28292B),
-      child: Center(
+      color: const Color(0XFF28292B),
+      child: const Center(
         child: SingleChildScrollView(
           child: BalanceWidget(
             expand: true,
@@ -89,12 +89,9 @@ class TransactionHeaderDelegate extends SliverPersistentHeaderDelegate {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Spacer(),
+        children: const [
+          Spacer(),
           Text("title test"),
-          SizedBox(
-            height: 15,
-          ),
         ],
       ),
     );
@@ -166,7 +163,7 @@ class BalanceWidget extends StatelessWidget {
     return expand
         ? DashWidget(
             width: 255,
-            // height: 235.h,
+            height: 234,
             cornerRadius: 24,
             dashColor: Color(0xFF232526),
             punchPosition: 136,
@@ -185,13 +182,17 @@ class BalanceWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: const BoxDecoration(
                         color: Color(0xff1C3231), shape: BoxShape.circle),
+                    child: Image.asset("images/green_tick.png"),
                     // child: drawables().check.svg(
                     //     colorFilter: primaryFilter(), height: 18.h, width: 18.h),
                   ),
                 ),
-                Text(
-                  "کارت بانک آینده",
-                  style: TextStyle(fontSize: 18, color: Color(0xFFCCCCCC)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Text(
+                    "کارت بانک آینده",
+                    style: TextStyle(fontSize: 18, color: Color(0xFFCCCCCC)),
+                  ),
                 ),
                 Text("۶۳۶۹  ۸۷۶۵  ۵۴۳۵  ۱۲۹۸",
                     style: TextStyle(fontSize: 12, color: Color(0xFFCCCCCC))),

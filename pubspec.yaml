@@ -68,6 +68,7 @@ flutter:
     - images/upper_notch_receipt.png
     - images/failed_smiley.png
     - images/receipt_out_put_gradiant.png
+    - images/green_tick.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

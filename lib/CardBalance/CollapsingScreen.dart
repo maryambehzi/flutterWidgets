@@ -93,29 +93,27 @@ class TransactionHeaderDelegate extends SliverPersistentHeaderDelegate {
     return Container(
       height: 50,
       color: Color(0XFF28292B),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-        SizedBox(
-        height: 15,
-      ),
-          Padding(
-            padding: const EdgeInsets.only(left: 9),
-            child: Text(
-            "1400/02/15",
-              style: TextStyle(fontSize:14 ,color: Color(0xFFCCCCCC) )
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Padding(
+              padding: EdgeInsets.only(left: 9),
+              child: Text(
+              "۱۴۰۱/۰۶/۱۲ - ۱۸:۴۳",
+                style: TextStyle(fontSize:14 ,color: Color(0xFFCCCCCC) )
 
+              ),
             ),
-          ),
-          const Spacer(),
-          Padding(
-              padding: EdgeInsets.only(right: 9),
-              child: Text("تراکنش های اخیر", style: TextStyle(fontSize:14 ,color: Color(0xFFCCCCCC) ),)),
-          SizedBox(
-            height: 15,
-          ),
-        ],
+            Spacer(),
+            Padding(
+                padding: EdgeInsets.only(right: 9),
+                child: Text("تراکنش های اخیر", style: TextStyle(fontSize:14 ,color: Color(0xFFCCCCCC) ),)),
+
+          ],
+        ),
       ),
     );
   }
@@ -167,25 +165,33 @@ class _StatementItem extends StatelessWidget {
                           color: Colors.white.withOpacity(0.05),
                           borderRadius: BorderRadius.circular(7)),
                       child: const Text(
-                        "12/2/1401",
+                        "۱۴۰۱/۰۷/۲۰ - ۱۲:۰۰",
                         style: TextStyle(fontSize: 14,color: Color(0xFFCCCCCC) ),
 
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          "برداشت از کارت ",
-                          softWrap: true,
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(fontSize: 14,color: Color(0xFFCCCCCC) ),
+                        padding: const EdgeInsets.only(left: 90.0),
+                        child: Column(
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                "برداشت از کارت ",
+                                softWrap: true,
+                                textAlign: TextAlign.right,
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(fontSize: 14,color: Color(0xFFCCCCCC) ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 40.0),
+                              child: Text("+ ۶۰٬۰۰۰", style: TextStyle(color: Color(0xFF36F1CD)),),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 12,
                     ),
                     Container(
                       width: 40,
@@ -199,19 +205,19 @@ class _StatementItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                color: Color(0xFF191A1B),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    Text("+ ۶۰٬۰۰۰", style: TextStyle(color: Color(0xFF36F1CD)),),
-                  ],
-                ),
-              )
+              // Container(
+              //   width: double.infinity,
+              //   padding: EdgeInsets.all(10),
+              //   color: Color(0xFF191A1B),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       const Spacer(),
+              //       Text("+ ۶۰٬۰۰۰", style: TextStyle(color: Color(0xFF36F1CD)),),
+              //     ],
+              //   ),
+              // )
             ],
           )
       ),
