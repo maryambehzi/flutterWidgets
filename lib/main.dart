@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shamsi_date/shamsi_date.dart';
+import 'package:widgets/CardBalance/CollapsingScreen.dart';
 import 'InternetPackage/DailyPackages.dart';
 import 'InternetPackage/OtherPackagesDialog.dart';
-import 'Calender/custom_calendar.dart';
-
-import 'receiptPage/NotchClipperCustom.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:CalendarPopupView(),
+      home:CollapsingScreen(),
     );
   }
 }
