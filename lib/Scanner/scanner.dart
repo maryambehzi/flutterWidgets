@@ -285,9 +285,18 @@ class BacgroundPaint extends CustomPainter {
     // canvas.drawPaint(gradient);
 
     paint.color = Colors.teal;
+    gradient.color = Colors.grey;
+
 
     const heightLine = 5; // your Horizontal line
     const widthLine = 5; // your Vertical line
+
+    Path linePath = Path();
+    linePath.addRect(Rect.fromLTRB(15, 15, 30, 30));
+    // gradient.shader = LinearGradient(
+    //     colors: [Colors.red.withOpacity(0.2), Colors.red.withOpacity(0.8),Colors.red.withOpacity(0.2)]
+    // ).createShader(linePath as Rect);
+    canvas.drawPath(linePath, gradient);
 
     for(int i = 1 ; i < height ; i++){
       if(i % heightLine == 0){
