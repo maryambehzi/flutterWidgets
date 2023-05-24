@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:widgets/CardBalance/CollapsingScreen.dart';
 import 'package:widgets/QuickTransaction/AnimationDragDown.dart';
-import 'package:widgets/QuickTransaction/quickTransaction.dart';
-import 'package:widgets/main.dart';
+import 'package:widgets/Scanner/scanner.dart';
 import 'package:widgets/receiptPage/NotchClipperCustom.dart';
 import 'package:widgets/Calender/custom_calendar.dart';
 import 'package:widgets/InternetPackage/internetTabBar.dart';
@@ -28,9 +27,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home:AnimationSheet(),
+      home:MyScannerApp(),
     );
   }
 }
@@ -42,3 +41,4 @@ class MyApp extends StatelessWidget {
 //    CalendarPopupView()
 //    MyInternetHomePage()
 //    AnimationSheet()
+//    MyScannerApp()
