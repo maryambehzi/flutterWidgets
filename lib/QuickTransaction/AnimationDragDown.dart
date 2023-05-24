@@ -46,10 +46,10 @@ class _AnimationSheetState extends State<AnimationSheet> {
         return Future.value(false);
       },
       child: Container(
-        color: Color(0xFF0D0E0E),
+        color: const Color(0xFF0D0E0E),
         child: Scaffold(
           body: Container(
-            color: Color(0xFF0D0E0E),
+            color: const Color(0xFF0D0E0E),
             child: SafeArea(
               child: Stack(
                 children: [

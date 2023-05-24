@@ -6,7 +6,7 @@ class QuickTransactionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xFF28292B),
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(30),
@@ -20,14 +20,14 @@ class QuickTransactionDialog extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 Expanded(
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Text(
                         "تراکنش سریع",
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 18.0,
@@ -46,14 +46,14 @@ class QuickTransactionDialog extends StatelessWidget {
                   width: 1, color: const Color(0xFF454545)),
               color: Colors.black.withOpacity(0.8)
             ),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0, right: 16.0),
+            child: const Padding(
+              padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 16.0, right: 16.0),
               child: Text('افزودن تراکنش سریع', style: TextStyle(color: Colors.white),),
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.only(top: 11.0),
+          const Padding(
+            padding: EdgeInsets.only(top: 11.0),
             child: Text('۳ از ۵ تراکنش', style: TextStyle(color: Color(0xFFCCCCCC)),),
           ),
           Padding(
@@ -142,7 +142,7 @@ class QuickTransactionDialog extends StatelessWidget {
                 ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
         ],
